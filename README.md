@@ -1,72 +1,99 @@
 # 🚀 Kailasa Capital | Cross‑Timeframe Trading Architecture for Consistent Alpha
 
-A quantitative finance project designed to build, test, and evaluate robust trading strategies across multiple timeframes and instruments. This initiative focuses on sustainable alpha generation with well-calibrated risk management and capital allocation.
+A quantitative finance project aimed at engineering robust, multi-timeframe trading systems for Nifty and Bank Nifty. It blends technical analysis, backtesting, and capital management to deliver sustainable alpha with minimized drawdowns.
 
 ---
 
 ## 📌 Project Objectives
 
-- ✅ Improve profit consistency through diversified strategies
-- 📉 Minimize drawdowns (absolute & time under drawdown)
-- 📈 Maximize risk-adjusted returns (Calmar & Sharpe Ratios)
-- 💰 Implement realistic capital allocation and dynamic position sizing
+- ✅ Improve profit consistency across timeframes and instruments
+- 📉 Minimize absolute and temporal drawdowns
+- 📈 Maximize risk-adjusted returns (Sharpe & Calmar Ratios)
+- 💰 Apply dynamic capital allocation and position sizing techniques
 
 ---
 
 ## 📊 Data Overview
 
 - **Instruments:** Nifty 50 & Bank Nifty
-- **Timeframes:** 1D (Positional), 60-min (Swing), 15-min (Intraday)
+- **Timeframes Used:**
+  - Daily (1D): Positional
+  - 60-Minute: Swing
+  - 15-Minute: Intraday
 - **Source:** [Kaggle - Nifty Minute Data](https://www.kaggle.com/datasets/debashis74017/nifty-50-minute-data)
-- **Period:** January 1, 2020 to March 31, 2025
+- **Date Range:** Jan 1, 2020 – Mar 31, 2025
 
 ---
 
 ## 🧹 Data Cleaning & Resampling
 
-Two primary preprocessing utilities were built:
-- `clean_daily(df)`: Handles daily-level data
-- `clean_and_resample(df, timeframe)`: Cleans and resamples minute data into desired OHLCV formats
+Two modular preprocessing functions were created:
+
+- `clean_daily(df)`: Cleans, filters, and indexes daily OHLCV data.
+- `clean_and_resample(df, timeframe)`: Cleans minute-level data and resamples it to the desired timeframe (15T, 60T, or 1D) using OHLCV logic.
+
+Key operations:
+
+- Remove nulls and duplicate timestamps
+- Ensure chronological integrity
+- Aggregate volume and price columns correctly
 
 ---
 
 ## 🧠 Strategy Architecture
 
-Three distinct trading strategies were developed and tested:
+Three core strategies were designed and applied to both instruments across all timeframes:
 
-1. **ATR Channel Breakout**  
-   - Combines trend-following with volatility bands
-   - Entry/Exit based on price breaking above/below ATR bands
+1. **ATR Channel Breakout**
 
-2. **MACD Histogram Reversal**  
-   - Captures momentum reversals
-   - Buy/Sell when MACD histogram flips polarity
+   - Trend-following with dynamic ATR-based bands
+   - Entry: Close > Upper Band | Exit: Close < Lower Band
 
-3. **SuperTrend + SMA Filter**  
-   - Filters SuperTrend signals using a moving average to reduce noise
+2. **MACD Histogram Reversal**
+
+   - Reversal-based strategy using MACD histogram polarity flips
+   - Entry: Histogram turns positive | Exit: Histogram turns negative
+
+3. **SuperTrend + SMA Filter**
+
+   - Filters SuperTrend signals through SMA alignment
+   - Trades only when SuperTrend agrees with moving average trend
 
 ---
 
 ## 📈 Backtesting & Evaluation
 
-Each strategy was applied to both instruments across all timeframes. Key performance metrics:
+Each strategy underwent rigorous testing across instruments and timeframes. Metrics tracked:
 
-- ✅ Cumulative Returns & Equity Curves
-- 📊 Sharpe Ratio, Calmar Ratio, Win Rate
-- 📉 Max Drawdown & Duration
-- 🔁 Monthly Performance Consistency
+- ✅ Cumulative & Strategy-wise Equity Curves
+- 📊 Sharpe Ratio, Calmar Ratio
+- 📉 Max Drawdown & Drawdown Duration
+- 🔁 Month-wise Return Consistency
+- ⚡ Trade Frequency & Win Rate
 
 ---
 
 ## 💸 Capital Allocation
 
-- **Total Capital:** ₹1 Crore
-- **Minimum Allocation:** ₹10L per strategy
-- **Lot Sizes:** Nifty = 75, Bank Nifty = 3
-- **Leverage Considered:** 20% margin requirement
-- **Compounding:** Enabled when sufficient margin exists
+- **Total Virtual Capital:** ₹1 Crore
+- **Minimum Allocation per Strategy:** ₹10L
+- **Minimum Tradable Lots:** Nifty = 75, Bank Nifty = 3
+- **Margin Requirement:** 20% of notional value
+- **Compounding Allowed:** Yes (based on profits)
+
+Example:
+
+> Nifty @ ₹21,000 ⇒ Notional = ₹15.75L ⇒ Margin = ₹3.15L
 
 ---
 
-## 📂 Project Structure
+## 🧠 Key Insights
+
+- ✅ Multi-timeframe diversification helped reduce overall risk
+- 🔁 SuperTrend with SMA Filter was most consistent across timeframes
+- 📈 Bank Nifty strategies showed stronger breakout behavior vs Nifty
+- 🚫 Excessive curve fitting was avoided by maintaining core logic
+
+---
+
 
